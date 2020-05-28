@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  api:
+    image: api
+    build:
+      args:
+        API_PORT: 5000
+        SERVICE_DIR: immuni_app_configuration
+      context: ../
+      dockerfile: ./common/Dockerfile
+      target: api
+    ports:
+      - "5000:5000"
+    environment:
+      ENV: development
+      APP_CONFIGURATION_MONGO_URL: "mongodb://mongo:27017"
+      MONGODB_NAME: "immuni-app-configuration"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:4.0.18-xenial
+    ports:
+      - "27017:27017"
