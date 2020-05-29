@@ -104,6 +104,7 @@ commands:
               --cov-report=html:coverage-reports \
               --cov=<<parameters.coverage_path>> \
               --junitxml=coverage-reports/junit.xml \
+              --ignore=common \
       - store_test_results:
           path: test-reports
       - store_artifacts:
