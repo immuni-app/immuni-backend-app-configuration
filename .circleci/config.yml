@@ -160,7 +160,15 @@ jobs:
           command: cd docker && docker-compose up --detach
       - run:
           name: "[docker] Health check"
-          command: curl --location --request GET 'http://0.0.0.0:5000/'
+          command: |
+            docker run \
+                --network container:docker_api_1 \
+                appropriate/curl \
+                --verbose \
+                --retry 10 \
+                --retry-delay 1 \
+                --retry-connrefused \
+                http://localhost:5000
       - run:
           name: "[docker] Stop the example"
           command: cd docker && docker-compose down
