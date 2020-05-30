@@ -175,9 +175,6 @@ jobs:
                 --retry-delay 1 \
                 --retry-connrefused \
                 http://localhost:5000
-      - run:
-          name: "[docker] Stop the example"
-          command: cd docker && docker-compose down
 
 workflows:
   code-quality:
