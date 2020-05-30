@@ -24,3 +24,8 @@ def test_app_configuration_mongo_failure() -> None:
         mock.return_value = None
         with raises(ImmuniException):
             managers.app_configuration_mongo
+
+
+async def test_teardown_on_uninitialized() -> None:
+    uninitialized_managers = Managers()
+    await uninitialized_managers.teardown()
