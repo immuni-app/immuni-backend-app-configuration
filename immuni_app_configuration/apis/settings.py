@@ -11,7 +11,6 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import sys
 from datetime import timedelta
 from http import HTTPStatus
 
@@ -22,6 +21,7 @@ from sanic.request import Request
 from sanic.response import HTTPResponse
 from sanic_openapi import doc
 
+from immuni_app_configuration.core import config
 from immuni_app_configuration.models.setting import Setting
 from immuni_app_configuration.models.swagger import SettingsResponse
 from immuni_common.core.exceptions import SchemaValidationException
@@ -59,7 +59,7 @@ bp: Blueprint = Blueprint("settings", url_prefix="/settings")
 @cache(max_age=timedelta(hours=1))
 @validate(
     location=Location.QUERY,
-    build=fields.Integer(required=True, validate=Range(min=1, max=sys.maxsize)),
+    build=fields.Integer(required=True, validate=Range(min=1, max=config.MAX_ALLOWED_BUILD)),
     platform=EnumField(enum=Platform),
 )
 async def get_settings(request: Request, build: int, platform: Platform) -> HTTPResponse:

@@ -16,3 +16,5 @@ from decouple import config
 APP_CONFIGURATION_MONGO_URL: str = config(
     "APP_CONFIGURATION_MONGO_URL", default="mongodb://localhost:27017/immuni-app-configuration-dev"
 )
+
+MAX_ALLOWED_BUILD: int = config("MAX_ALLOWED_BUILD", cast=int, default=20_000)
