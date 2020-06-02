@@ -17,6 +17,7 @@ from typing import Any, Dict
 from pytest import mark
 from pytest_sanic.utils import TestClient
 
+from immuni_app_configuration.core import config
 from immuni_app_configuration.models.setting import Setting
 from immuni_common.core.exceptions import SchemaValidationException
 from immuni_common.models.enums import Platform
@@ -29,7 +30,7 @@ from immuni_common.models.enums import Platform
         ("ios", "2", {"ios_int_setting": 2, "ios_string_setting": "string_value"},),
         ("ios", "3", {"ios_int_setting": 2, "ios_string_setting": "string_value"},),
         ("android", "1", {},),
-        ("android", "2", {"android_int_setting": 100},),
+        ("android", config.MAX_ALLOWED_BUILD, {"android_int_setting": 100},),
     ],
 )
 async def test_get_settings(
@@ -74,7 +75,8 @@ async def test_otp_method_not_allowed(method: str, client: TestClient) -> None:
         1.2,
         -1.0,
         "int('1')",
-        23456789876543234567898765,
+        23456789876543234567898765,  # > sys.maxsize
+        config.MAX_ALLOWED_BUILD + 1,
         True,
         False,
         "true",
