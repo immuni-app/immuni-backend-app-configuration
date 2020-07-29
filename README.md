@@ -66,7 +66,8 @@ This repository contains the source code of Immuni's App Configuration Service. 
 
 # Installation
 
-This backend service comes with an out-of-the-box installation, leveraging [Docker](https://www.docker.com/) containers. Please ensure that Docker is installed on your computer.
+This backend service comes with an out-of-the-box installation, leveraging [Docker](https://www.docker.com/) containers.
+Please ensure that Docker is installed on your computer (docker-compose version >= 1.25.5).
 
 ```bash
 git clone git@github.com:immuni-app/immuni-backend-app-configuration.git
