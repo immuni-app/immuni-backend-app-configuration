@@ -21,9 +21,9 @@ from sanic.request import Request
 from sanic.response import HTTPResponse
 from sanic_openapi import doc
 
-from immuni_app_configuration.core import config
 from immuni_app_configuration.models.setting import Setting
 from immuni_app_configuration.models.swagger import SettingsResponse
+from immuni_common.core import config as common_config
 from immuni_common.core.exceptions import SchemaValidationException
 from immuni_common.helpers.cache import cache
 from immuni_common.helpers.sanic import json_response, validate
@@ -59,7 +59,7 @@ bp: Blueprint = Blueprint("settings", url_prefix="/settings")
 @cache(max_age=timedelta(hours=1))
 @validate(
     location=Location.QUERY,
-    build=fields.Integer(required=True, validate=Range(min=1, max=config.MAX_ALLOWED_BUILD)),
+    build=fields.Integer(required=True, validate=Range(min=1, max=common_config.MAX_ALLOWED_BUILD)),
     platform=EnumField(enum=Platform),
 )
 async def get_settings(request: Request, build: int, platform: Platform) -> HTTPResponse:
